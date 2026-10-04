@@ -12,6 +12,8 @@
             overflow-x: hidden;
             font-family: 'Georgia', 'Segoe UI', serif;
         }
+
+        /* ========== PANTALLA DEL GIRASOL ========== */
         .sunflower-screen {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100vh;
@@ -21,168 +23,205 @@
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
         .sunflower-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .sunflower { position: relative; width: 280px; height: 280px; animation: spin 25s linear infinite; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* GIRASOL BIEN FORMADO, FIJO (sin girar desordenado) */
+        .sunflower {
+            position: relative;
+            width: 280px; height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Si quieres que gire completo, quita el comentario de abajo */
+        /* .sunflower { animation: spin 25s linear infinite; } */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .petal {
-            position: absolute; width: 62px; height: 115px;
+            position: absolute;
+            width: 60px; height: 110px;
             background: linear-gradient(to bottom, #ffeb3b, #f9a825);
-            border-radius: 50%; left: 50%; top: 50%;
-            transform-origin: center -57px;
+            border-radius: 50%;
+            transform-origin: center bottom;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .center {
-            position: absolute; width: 90px; height: 90px;
+            position: relative;
+            width: 90px; height: 90px;
             background: radial-gradient(circle, #795548, #4e342e);
-            border-radius: 50%; left: 50%; top: 50%;
-            transform: translate(-50%, -50%); z-index: 10;
+            border-radius: 50%;
+            z-index: 10;
             box-shadow: inset 0 -5px 12px rgba(0,0,0,0.35);
         }
         .stem {
-            position: absolute; width: 14px; height: 220px;
+            position: absolute;
+            width: 14px; height: 200px;
             background: linear-gradient(to bottom, #66bb6a, #2e7d32);
-            top: 100%; left: 50%; transform: translateX(-50%);
+            top: 100%; left: 50%;
+            transform: translateX(-50%);
             border-radius: 0 0 6px 6px;
         }
         .click-text {
-            margin-top: 40px; font-size: 1.3rem; color: #5d4037;
-            font-weight: bold; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            margin-top: 50px;
+            font-size: 1.3rem;
+            color: #5d4037;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
             animation: pulse 2s ease-in-out infinite;
         }
-        @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
-        .collage-screen {
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* ========== PANTALLA DE FRASES ========== */
+        .phrases-screen {
             position: fixed; top: 0; left: 0;
             width: 100%; min-height: 100vh;
-            padding: 30px 20px;
+            padding: 40px 20px;
             opacity: 0; visibility: hidden;
             transition: opacity 1s ease, visibility 1s ease;
             background: linear-gradient(135deg, #fff8e1, #ffecb3, #ffe082);
         }
-        .collage-screen.active { opacity: 1; visibility: visible; }
-        .collage-title {
-            text-align: center; font-size: 2rem; color: #e65100;
-            margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        .photos-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 18px; max-width: 900px; margin: 0 auto 40px;
-        }
-        .photo-card {
-            border-radius: 16px; overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            transform: scale(0); transition: transform 0.6s ease;
-            background: #fff; padding: 10px;
-        }
-        .collage-screen.active .photo-card { transform: scale(1); }
-        .photo-card:nth-child(1) { transition-delay: 0.1s; }
-        .photo-card:nth-child(2) { transition-delay: 0.2s; }
-        .photo-card:nth-child(3) { transition-delay: 0.3s; }
-        .photo-card:nth-child(4) { transition-delay: 0.4s; }
-        .photo-card:nth-child(5) { transition-delay: 0.5s; }
-        .photo-card img {
-            width: 100%; height: 200px;
-            object-fit: cover; border-radius: 10px;
-            background: #fff3e0;
+        .phrases-screen.active { opacity: 1; visibility: visible; }
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            color: #e65100;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         .phrases-container {
-            position: relative; width: 100%; min-height: 320px; margin-top: 20px;
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 400px;
         }
         .phrase {
-            position: absolute; font-size: 1.1rem; font-weight: bold;
-            color: #e65100; background: rgba(255,255,255,0.85);
-            padding: 10px 20px; border-radius: 50px;
+            position: absolute;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #e65100;
+            background: rgba(255,255,255,0.85);
+            padding: 12px 24px;
+            border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             opacity: 0;
             animation: floatIn 3s ease forwards, float 6s ease-in-out infinite;
             white-space: nowrap;
         }
         @keyframes floatIn {
-            0% { opacity:0; transform: translateY(40px) rotate(-5deg); }
-            100% { opacity:1; transform: translateY(0) rotate(0deg); }
+            0% { opacity: 0; transform: translateY(40px) rotate(-5deg); }
+            100% { opacity: 1; transform: translateY(0) rotate(0deg); }
         }
         @keyframes float {
-            0%,100% { transform: translateY(0); }
+            0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
         .back-btn {
-            display: block; margin: 30px auto;
+            display: block;
+            margin: 40px auto 20px;
             padding: 12px 30px;
             background: linear-gradient(135deg, #ffc107, #ff9800);
-            border: none; border-radius: 50px;
-            font-size: 1.1rem; font-weight: bold; color: #5d4037;
-            cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #5d4037;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             transition: transform 0.3s ease;
         }
         .back-btn:hover { transform: scale(1.05); }
+
         @media (max-width: 600px) {
             .sunflower { width: 220px; height: 220px; }
-            .petal { width: 50px; height: 95px; transform-origin: center -47px; }
-            .photos-grid { grid-template-columns: repeat(2, 1fr); }
-            .phrase { font-size: 0.95rem; padding: 8px 15px; }
+            .petal { width: 48px; height: 95px; }
+            .phrase { font-size: 0.95rem; padding: 10px 18px; }
+            .title { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- PANTALLA INICIAL: GIRASOL -->
     <div class="sunflower-screen" id="sunflowerScreen">
-        <div class="sunflower">
-            <div class="center"><div class="stem"></div></div>
+        <div class="sunflower" id="sunflower">
+            <div class="center">
+                <div class="stem"></div>
+            </div>
         </div>
         <p class="click-text">🌻 Toca el girasol 🌻</p>
     </div>
-    <div class="collage-screen" id="collageScreen">
-        <h2 class="collage-title">✨ Para la persona más especial ✨</h2>
-        <div class="photos-grid">
-            <div class="photo-card">
-                <img src="https://picsum.photos/id/64/400/300" alt="Hermosa">
-            </div>
-            <div class="photo-card">
-                <img src="https://picsum.photos/id/177/400/300" alt="Juntos">
-            </div>
-            <div class="photo-card">
-                <img src="https://picsum.photos/id/145/400/300" alt="Flores">
-            </div>
-            <div class="photo-card">
-                <img src="https://picsum.photos/id/1083/400/300" alt="Eres única">
-            </div>
-            <div class="photo-card">
-                <img src="https://picsum.photos/id/1027/400/300" alt="Siempre">
-            </div>
-        </div>
+
+    <!-- PANTALLA DE FRASES -->
+    <div class="phrases-screen" id="phrasesScreen">
+        <h2 class="title">✨ Para la persona más especial ✨</h2>
         <div class="phrases-container" id="phrasesContainer"></div>
         <button class="back-btn" id="backBtn">🌻 Volver al girasol</button>
     </div>
+
 <script>
-    const sunflower = document.querySelector('.sunflower');
-    for (let i = 0; i < 16; i++) {
+    // Generar los 16 pétalos correctamente formados
+    const sunflower = document.getElementById('sunflower');
+    const center = sunflower.querySelector('.center');
+    const totalPetals = 16;
+
+    for (let i = 0; i < totalPetals; i++) {
         const petal = document.createElement('div');
         petal.classList.add('petal');
-        petal.style.transform = `rotate(${(360/16)*i}deg) translateY(-55px)`;
-        sunflower.insertBefore(petal, sunflower.querySelector('.center'));
+        const angle = (360 / totalPetals) * i;
+        petal.style.transform = `rotate(${angle}deg) translateY(-10px)`;
+        sunflower.insertBefore(petal, center);
     }
+
+    // FRASES EXACTAMENTE COMO LAS PEDISTE
     const frases = [
-        "Guapa 💖", "Inteligente 🧠✨", "Creativa 🎨💫", "Divina 👑",
-        "Maravillosa 🌟", "Mi ojitos bonitos 👀💛", "Eres mi todo 💘",
-        "Mi cielito lindo ☁️💙", "Mi bebé 🍼💕", "Mi niña hermosa 👧✨",
-        "Preciosa 💎", "Talentosa 🏆🎶", "Perfecta 💯💖",
-        "Mi vida entera 💛🥰"
+        "Guapa 💖",
+        "Inteligente 🧠✨",
+        "Creativa 🎨💫",
+        "Divina 👑",
+        "Maravillosa 🌟",
+        "Mi ojitos bonitos 👀💛",
+        "Enamorada de ella 💘",
+        "Mi cielito lindo ☁️💙",
+        "Mi bebé 🍼💕",
+        "Mi niña de ojitos hermosos 👧✨",
+        "Preciosa 💎",
+        "Talentosa 🏆🎶",
+        "Perfecta 💯💖",
+        "Mi vida de colochitos hermosos 💛🥰"
     ];
+
+    // Colocar frases en posiciones bonitas
     const container = document.getElementById('phrasesContainer');
     frases.forEach((texto, i) => {
         const f = document.createElement('div');
         f.classList.add('phrase');
         f.textContent = texto;
-        f.style.left = `${5 + (i % 4) * 23}%`;
-        f.style.top = `${15 + Math.floor(i / 4) * 75}px`;
-        f.style.animationDelay = `${0.3 + i * 0.25}s`;
+        // Distribuir en columnas
+        const column = i % 3;
+        const row = Math.floor(i / 3);
+        f.style.left = `${8 + column * 30}%`;
+        f.style.top = `${20 + row * 85}px`;
+        f.style.animationDelay = `${0.3 + i * 0.2}s`;
         container.appendChild(f);
     });
+
+    // Navegación
     const sunScreen = document.getElementById('sunflowerScreen');
-    const colScreen = document.getElementById('collageScreen');
+    const phrasesScreen = document.getElementById('phrasesScreen');
+
     sunScreen.addEventListener('click', () => {
         sunScreen.classList.add('hidden');
-        colScreen.classList.add('active');
+        phrasesScreen.classList.add('active');
     });
+
     document.getElementById('backBtn').addEventListener('click', () => {
-        colScreen.classList.remove('active');
+        phrasesScreen.classList.remove('active');
         setTimeout(() => sunScreen.classList.remove('hidden'), 500);
     });
 </script>
